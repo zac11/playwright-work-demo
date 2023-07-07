@@ -1,27 +1,29 @@
 import { test, Page } from "@playwright/test";
 import BaseMethods from "../pages/baseMethods.page";
+import MenuLocator from "../locators/menubar.locator";
 import TopHeader from "../pages/topHeader.page";
-import HeaderLocators from "../locators/demo.locator";
 
-test.describe(`Load the URL and validat the top header`,()=>{
+
+test.describe(`Load the URL and validate the top header`,()=>{
     
-    
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async({page})=>{
         const baseMethods = new BaseMethods(page);
-        const headerlocator = new HeaderLocators(page);
+        const menulocator = new MenuLocator(page);
         await baseMethods.goToURL();
-        await baseMethods.waitForElementToBeVisible(headerlocator.WebsiteLogo);
-       
+        await baseMethods.waitForElementToBeVisible(menulocator.WebsiteLogo);
+    });
+    
+
+    test(`Validate the header options are displayed`, async({page})=>{
+        const topHeader = new TopHeader(page);
+        await topHeader.validateOptionsPresent();
     });
 
-    test(`Validate that the top menu has items`, async({page})=>{
-        const topHeaderMethods = new TopHeader(page);
-        await topHeaderMethods.validateHeaderMessage();
-        await topHeaderMethods.validateSignInPresent();
-        await topHeaderMethods.validateCreateAccountPresent();
-       
-        
+    test(`Select the GBP currency`,async({page})=>{
+        const topHeader = new TopHeader(page);
+        await topHeader.selectGBPCurrency();
     });
+
 
 
 

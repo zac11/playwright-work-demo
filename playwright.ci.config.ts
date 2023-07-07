@@ -25,10 +25,14 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     headless: true,
-     baseURL: 'https://magento.softwaretestingboard.com/',
+     baseURL: 'https://tutorialsninja.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    video: {
+        mode: 'on', 
+        size: { width: 1800, height: 1000 }
+      }
   },
 
   /* Configure projects for major browsers */

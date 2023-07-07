@@ -1,40 +1,50 @@
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import BaseMethods from "./baseMethods.page";
-import HeaderLocators from "../locators/demo.locator";
+import TopHeaderLocator from "../locators/topBar.locator";
+
 
 
 export default class TopHeader{
     readonly page: Page;
-    readonly WelcomeMessage : string;
+    readonly validateTextCurrency : string;
+   
 
     constructor(page: Page){
         this.page = page;
-        this.WelcomeMessage = `Default welcome msg!`;
+        this.validateTextCurrency = `£`;
         
     }
 
-    async validateHeaderMessage(){
+    async validateOptionsPresent(){
         const baseMethods = new BaseMethods(this.page);
-        const headerlocator = new HeaderLocators(this.page);
-        await baseMethods.validateText(headerlocator.WelcomeMessasgeLocator,this.WelcomeMessage);
+        const topheader = new TopHeaderLocator(this.page);
+        await baseMethods.validateElementVisible(topheader.CurrencyDropDown);
+        await baseMethods.validateElementVisible(topheader.ContactNumber);
+        await baseMethods.validateElementVisible(topheader.MyAccount);
+        await baseMethods.validateElementVisible(topheader.ShoppingCart);
+        await baseMethods.validateElementVisible(topheader.WishList);
+        await baseMethods.validateElementVisible(topheader.Checkout);
+
+        
+       
         
     }
 
-    async validateSignInPresent(){
+    async selectGBPCurrency(){
         const baseMethods = new BaseMethods(this.page);
-        const headerlocator = new HeaderLocators(this.page);
-        await baseMethods.validateElementVisible(headerlocator.SignInLocator);
-
+        const topheader = new TopHeaderLocator(this.page);
+        await baseMethods.clickOnElement(topheader.CurrencyDropDown);
+        await baseMethods.waitforElement(3000);
+        await baseMethods.clickOnElement(topheader.GBPOption);
+        await baseMethods.validateText(topheader.GBPSelected, this.validateTextCurrency);
+       
     }
 
-    async validateCreateAccountPresent(){
-        const baseMethods = new BaseMethods(this.page);
-        const headerlocator = new HeaderLocators(this.page);
-        await baseMethods.validateElementVisible(headerlocator.CreateAccountLocator);
-
-    }
+   
 
     
+
+
 }
 
 

@@ -10,7 +10,7 @@ export default class BaseMethods{
     }
 
     async goToURL(){
-        await this.page.goto('/');
+        await this.page.goto('/demo/');
     }
 
     async validateText(locator : Locator, expectedText: string){
@@ -41,4 +41,15 @@ export default class BaseMethods{
         await locator.fill(InputValue);
         await this.page.waitForTimeout(1500);
     }
+
+
+    async hoverOnLocator(locator: Locator){
+        await locator.hover({timeout: 5000});
+    }
+
+    async waitforElement(timeout : number){
+        await this.page.waitForTimeout(timeout);
+    }
+
+    
 }
