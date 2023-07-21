@@ -11,7 +11,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  timeout : 50 * 1000,
+  timeout: 50 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,12 +26,12 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     headless: false,
-     baseURL: 'https://tutorialsninja.com/',
+    baseURL: 'https://tutorialsninja.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     video: {
-      mode: 'on', 
+      mode: 'on',
       size: { width: 1800, height: 1000 }
     }
   },
@@ -40,13 +40,13 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'],
-      viewport: {
-        width: 1800,
-        height: 1000
-      }
-     },
-      
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--start-maximized'],
+        }
+      },
+
     }
 
     /* Test against mobile viewports. */

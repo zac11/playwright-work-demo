@@ -1,12 +1,15 @@
 import { Locator, Page, expect } from "@playwright/test";
+import * as CryptoJS from 'crypto-js';
 
 
 export default class BaseMethods{
 
     readonly page: Page;
+    readonly LoginPassword : string;
 
     constructor(page: Page){
         this.page = page;
+        this.LoginPassword = `pass123@45`;
     }
 
     async goToURL(){
@@ -49,6 +52,23 @@ export default class BaseMethods{
 
     async waitforElement(timeout : number){
         await this.page.waitForTimeout(timeout);
+    }
+
+    async encrypt_password(){
+        const key = `SECRET`;
+        await console.log(`The password is ${this.LoginPassword}`);
+        const cipher = CryptoJS.AES.encrypt('************', key);
+        await console.log(cipher.toString());
+        return CryptoJS.AES.decrypt(this.LoginPassword, key).toString(CryptoJS.enc.Utf8);
+        
+    }
+
+
+    async decrypt_password(){
+        const key = `SECRET`;
+        const cipher = CryptoJS.AES.encrypt(this.LoginPassword, key);
+        console.log(cipher.toString());
+        return CryptoJS.AES.decrypt(this.LoginPassword, key).toString(CryptoJS.enc.Utf8);
     }
 
     

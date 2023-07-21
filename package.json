@@ -12,5 +12,8 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "@playwright/test": "^1.35.1"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1"
   }
 }
