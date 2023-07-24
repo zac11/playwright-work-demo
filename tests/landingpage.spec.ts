@@ -20,7 +20,9 @@ test.describe(`Tests for UI elements`, async()=>{
             landingpage.navbarVisible(),
             landingpage.validateLogoVisible(),
             landingpage.searchBarVisible(),
-            landingpage.cartisVisible()
+            landingpage.cartisVisible(),
+            landingpage.featuredSectionDisplayed()
+
         ]);
        
         
@@ -30,6 +32,19 @@ test.describe(`Tests for UI elements`, async()=>{
     test(`Cart is empty`, async({page})=>{
         const landingpage = new LandingPage(page);
         await landingpage.validateCartIsEmpty();
+    });
+
+    test(`Validate items count in landing page`, async({page})=>{
+        const landingpage = new LandingPage(page);
+        await Promise.all([
+            landingpage.footerPaginationCount()
+        ]);
+    });
+
+    test(`Carousell swipe functionality test`, async({page})=>{
+        const landingpage = new LandingPage(page);
+        await landingpage.swipeNextLandingCarousell();
+        await landingpage.swipeNextFooterCarousell();
     })
 
 

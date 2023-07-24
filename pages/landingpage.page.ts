@@ -57,6 +57,31 @@ export default class LandingPage{
         
     }
 
+    async featuredSectionDisplayed(){
+        const landingPageLocators = new LandingPageLocators(this.page);
+        for(const div of await landingPageLocators.productDescription.all())
+            await div.isVisible()
+    }
+
+    async footerPaginationCount() : Promise<void> {
+        const landingPageLocators = new LandingPageLocators(this.page);
+        const count  = await landingPageLocators.footerPagination.count();
+        expect(count).toBeGreaterThanOrEqual(10);
+
+    }
+
+    async swipeNextLandingCarousell(){
+        const landingPageLocators = new LandingPageLocators(this.page);
+        await landingPageLocators.swipeNextButton.nth(0).click();
+    }
+
+    async swipeNextFooterCarousell(){
+        const landingPageLocators = new LandingPageLocators(this.page);
+        for (const div of await landingPageLocators.footerPagination.all())
+            await landingPageLocators.swipeNextButton.nth(1).click();
+    }
+
+
 
 
 
