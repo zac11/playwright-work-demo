@@ -17,6 +17,7 @@ export default class LandingPageLocators{
     readonly productDescription : Locator;
     readonly footerPagination : Locator;
     readonly swipeNextButton : Locator;
+    readonly footerSectionClass : Locator;
 
 
 
@@ -34,5 +35,6 @@ export default class LandingPageLocators{
         this.productDescription = page.locator(`.product-thumb.transition`);
         this.footerPagination = page.locator(`.swiper-pagination-bullet`);
         this.swipeNextButton = page.locator(`.swiper-button-next`);
+        this.footerSectionClass = page.locator(`.col-sm-3`);
     }
 }

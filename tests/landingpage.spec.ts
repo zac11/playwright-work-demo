@@ -29,10 +29,15 @@ test.describe(`Tests for UI elements`, async()=>{
 
     });
 
-    test(`Cart is empty`, async({page})=>{
+    test.only(`Cart is empty`, async({page})=>{
         const landingpage = new LandingPage(page);
-        await landingpage.validateCartIsEmpty();
+        await landingpage.validateCartContents("0 items");
     });
+
+    test(`Hover on the nav bar items`, async({page})=>{
+        const landingpage = new LandingPage(page);
+        await landingpage.hoverOnAllDropdownOptions();
+    })
 
     test(`Validate items count in landing page`, async({page})=>{
         const landingpage = new LandingPage(page);
@@ -45,7 +50,18 @@ test.describe(`Tests for UI elements`, async()=>{
         const landingpage = new LandingPage(page);
         await landingpage.swipeNextLandingCarousell();
         await landingpage.swipeNextFooterCarousell();
-    })
+    });
+
+    test(`Footer section is displayed`, async({page})=>{
+        const landingpage = new LandingPage(page);
+        await page.waitForTimeout(5000);
+        await Promise.all([
+            landingpage.firstFooterSection(),
+            landingpage.secondFooterSection(),
+            landingpage.thirdFooterSection(),
+            landingpage.fourthFooterSection()
+        ]);
+    });
 
 
   
