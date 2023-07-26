@@ -2,6 +2,7 @@ import { Locator, Page, expect } from "@playwright/test";
 import AddToCartLocator from "../locators/addToCart.locator";
 import BaseMethods from "./baseMethods.page";
 import LandingPageLocators from "../locators/landingpage.locator";
+import { base } from "@faker-js/faker";
 
 
 export default class AddToCart{
@@ -29,11 +30,38 @@ export default class AddToCart{
         const addtocartlocators = new AddToCartLocator(this.page);
         await basemethods.hoverOnLocator(addtocartlocators.desktop);
         await basemethods.clickOnElement(addtocartlocators.macDesktop);
-        await basemethods.waitForElementToBeVisible(`button[type='button'] span[class='hidden-xs hidden-sm hidden-md']`);
+        await basemethods.waitForElementToBeVisible(addtocartlocators.addtoCartString);
         await basemethods.clickOnElement(addtocartlocators.addtoCart);
         await this.page.waitForTimeout(2000);
         await this.validateCartContents(`1 items`);
 
 
     }
+
+
+    async addToCartFromCarousell(){
+        const basemethods = new BaseMethods(this.page);
+        const addtocartlocators = new AddToCartLocator(this.page);
+        await basemethods.clickOnElement(addtocartlocators.MacbookAir);
+        await basemethods.waitForElementToBeVisible(addtocartlocators.addtoCartOnProductPageString);
+        await this.page.waitForTimeout(500);
+        await basemethods.clickOnElement(addtocartlocators.addtoCartOnProductPage);
+        await this.page.waitForTimeout(2000);
+        await this.validateCartContents(`1 items`);
+        
+    }
+
+
+    async addtoCartFromFeaturedSection(){
+        const basemethods = new BaseMethods(this.page);
+        const addtocartlocators = new AddToCartLocator(this.page);
+        const landingPageLocators = new LandingPageLocators(this.page);
+
+        await landingPageLocators.productDescription.nth(1).locator(addtocartlocators.addtoCart).click();
+        await this.page.waitForTimeout(2000);
+        await this.validateCartContents(`1 items`);
+
+    }
+
+    
 }

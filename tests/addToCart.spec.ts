@@ -17,5 +17,15 @@ test.describe(`Add a product to cart`,async()=>{
     test(`Add a product in cart from the navbar`, async({page})=>{
         const addToCart = new AddToCart(page);
         await addToCart.addToCartFromNavbar();
-    })
+    });
+
+    test(`Add a product in cart from the carousell`, async({page})=>{
+        const addToCart = new AddToCart(page);
+        await addToCart.addToCartFromCarousell();
+    });
+
+    test(`Add a product in cart from the featured section`, async({page})=>{
+        const addToCart = new AddToCart(page);
+        await addToCart.addtoCartFromFeaturedSection();
+    });
 })
