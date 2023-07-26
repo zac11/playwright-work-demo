@@ -12,6 +12,7 @@ export default class RegisterLocator{
     readonly CreateAccountButton : Locator;
     readonly PrivacyPolicy : Locator;
     readonly errorAlert : Locator;
+    readonly errorAlertNew : string;
 
     
 
@@ -25,7 +26,8 @@ export default class RegisterLocator{
         this.ConfirmPassword = page.locator(`#input-confirm`);
         this.CreateAccountButton = page.locator(`input[value='Continue']`);
         this.PrivacyPolicy = page.locator(`input[value='1'][name='agree']`);
-        this.errorAlert = page.locator(`.alert.alert-danger.alert-dismissible`);
+        this.errorAlert = page.locator(`div.alert.alert-danger.alert-dismissible`);
+        this.errorAlertNew = `div.alert.alert-danger.alert-dismissible`;
 
         
     }
