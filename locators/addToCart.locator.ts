@@ -11,7 +11,7 @@ export default class AddToCartLocator{
 
 
     constructor(page : Page){
-        this.desktop = page.getByText(`Desktops`);
+        this.desktop = page.getByRole('link', { name: 'Desktops' })
         this.macDesktop = page.getByText(`Mac (1)`);
         this.addtoCart = page.locator(`span`,{hasText: `Add to Cart`});
     }
