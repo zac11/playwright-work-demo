@@ -5,27 +5,27 @@ import LandingPageLocators from "../locators/landingpage.locator";
 import { base } from "@faker-js/faker";
 
 
-export default class AddToCart{
+export default class AddToCart {
 
     readonly page: Page;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
     }
 
-    async validateCartContents(cartText : string) : Promise<void>{
+    async validateCartContents(cartText: string): Promise<void> {
         const baseMethods = new BaseMethods(this.page);
         const landingPageLocators = new LandingPageLocators(this.page);
         const spanInnerText = await landingPageLocators.cartText.innerText();
         const finalText = await baseMethods.returnNumberOfItems(spanInnerText);
         await expect(finalText).toEqual(cartText);
-       
+
     }
 
-/**
- * Add a product in cart from the navbar
- */
-    async addToCartFromNavbar(){
+    /**
+     * Add a product in cart from the navbar
+     */
+    async addToCartFromNavbar() {
         const basemethods = new BaseMethods(this.page);
         const addtocartlocators = new AddToCartLocator(this.page);
         await basemethods.hoverOnLocator(addtocartlocators.desktop);
@@ -39,7 +39,7 @@ export default class AddToCart{
     }
 
 
-    async addToCartFromCarousell(){
+    async addToCartFromCarousell() {
         const basemethods = new BaseMethods(this.page);
         const addtocartlocators = new AddToCartLocator(this.page);
         await basemethods.clickOnElement(addtocartlocators.MacbookAir);
@@ -48,12 +48,12 @@ export default class AddToCart{
         await basemethods.clickOnElement(addtocartlocators.addtoCartOnProductPage);
         await this.page.waitForTimeout(2000);
         await this.validateCartContents(`1 items`);
-        
+
     }
 
 
-    async addtoCartFromFeaturedSection(){
-        const basemethods = new BaseMethods(this.page);
+    async addtoCartFromFeaturedSection() {
+
         const addtocartlocators = new AddToCartLocator(this.page);
         const landingPageLocators = new LandingPageLocators(this.page);
 
@@ -63,5 +63,5 @@ export default class AddToCart{
 
     }
 
-    
+
 }

@@ -30,7 +30,7 @@ test.describe(`Tests for UI elements`, async () => {
 
     });
 
-    test.only(`Cart is empty`, async ({ page }) => {
+    test(`Cart is empty`, async ({ page }) => {
         const addtoCart = new AddToCart(page);
         await addtoCart.validateCartContents("0 items");
     });

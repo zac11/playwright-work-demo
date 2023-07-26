@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test";
-import { faker } from '@faker-js/faker';
+import { base, faker } from '@faker-js/faker';
 import BaseMethods from "./baseMethods.page";
 import RegisterLocator from "../locators/register.locator";
 import TopHeaderLocator from "../locators/topBar.locator";
@@ -30,7 +30,7 @@ export default class RegisterUser{
         this.password = `pass12@345`;
         this.telephone = faker.phone.number();
         this.successMessage = `div[id='content'] h1`;
-        this.medium_timeout = 20000;
+        this.medium_timeout = 10000;
 
     }
 
@@ -59,7 +59,6 @@ export default class RegisterUser{
         await baseMethods.fillInputValue(regiserLocator.ConfirmPassword, this.password);
         await baseMethods.clickOnElement(regiserLocator.PrivacyPolicy);
         await baseMethods.clickOnElement(regiserLocator.CreateAccountButton);
-        await baseMethods.waitforElement(this.medium_timeout);
         await baseMethods.waitForElementToBeVisible(this.successMessage);
         
 
@@ -75,8 +74,8 @@ export default class RegisterUser{
         await baseMethods.fillInputValue(regiserLocator.Password,this.password); // encrypt at a later stage
         await baseMethods.fillInputValue(regiserLocator.ConfirmPassword, this.password);
         await baseMethods.clickOnElement(regiserLocator.CreateAccountButton);
-        await baseMethods.waitforElement(this.medium_timeout);
-        await baseMethods.validateElementVisible(regiserLocator.errorAlert);
+        await baseMethods.waitForElementToBeVisible(regiserLocator.errorAlertNew);
+    
         
 
     }
