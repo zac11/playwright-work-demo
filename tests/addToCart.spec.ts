@@ -28,4 +28,10 @@ test.describe(`Add a product to cart`,async()=>{
         const addToCart = new AddToCart(page);
         await addToCart.addtoCartFromFeaturedSection();
     });
+
+    test.only(`Add a produt to cart and then remove it`, async({page})=>{
+        const addToCart = new AddToCart(page);
+        await addToCart.addtoCartFromFeaturedSection();
+        await addToCart.removeSingleItemFromCart();
+    })
 })

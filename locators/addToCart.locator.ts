@@ -12,6 +12,8 @@ export default class AddToCartLocator{
     readonly addtoCartString : string;
     readonly addtoCartOnProductPage : Locator;
     readonly addtoCartOnProductPageString : string;
+    readonly removeCartTable : Locator;
+    readonly removeCartItem : Locator;
 
 
 
@@ -23,6 +25,8 @@ export default class AddToCartLocator{
         this.MacbookAir = page.getByRole('img', { name: 'iPhone 6' }).first();
         this.addtoCartOnProductPage = page.locator(`#button-cart`);
         this.addtoCartOnProductPageString = `#button-cart`;
+        this.removeCartTable = page.locator(`.table.table-striped tbody`);
+        this.removeCartItem = page.getByTitle(`Remove`);
     }
 
 

@@ -64,4 +64,16 @@ export default class AddToCart {
     }
 
 
+    async removeSingleItemFromCart(){
+        const basemethods = new BaseMethods(this.page);
+        const addtocartlocators = new AddToCartLocator(this.page);
+        const landingPageLocators = new LandingPageLocators(this.page);
+        await basemethods.clickOnElement(landingPageLocators.cartText);
+        await basemethods.clickOnElement(addtocartlocators.removeCartTable.locator(`tr`).locator(addtocartlocators.removeCartItem));
+        await this.page.waitForTimeout(1000);
+        await this.validateCartContents(`0 items`);
+
+    }
+
+
 }
