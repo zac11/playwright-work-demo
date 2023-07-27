@@ -4,24 +4,52 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+    - cron: "0 15 * * *"  # Cron schedule to trigger workflow at a specific time
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 18
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+
     - name: Run Playwright tests
       run: npm run test-ci
+
     - uses: actions/upload-artifact@v3
       if: always()
       with:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Send email
+      uses: dawidd6/action-send-mail@v3.7.2
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{SECRETS.EMAIL_USERNAME}}
+        password: ${{SECRETS.EMAIL_PASSWORD}}
+        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+        body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+        to: ydv.rahul09@gmail.com
+        from: ydv.rahul09@gmail.com
+        secure: true
+        ignore_cert: true
+        convert_markdown: true
+        priority: low
+        attachments: /home/runner/work/playwright-work-demo/playwright-work-demo/playwright-report/index.html
+    - name: Deploy to GH pages
+      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      with:
+        branch: gh-pages
+        folder: ./playwright-report
