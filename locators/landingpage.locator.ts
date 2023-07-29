@@ -25,7 +25,6 @@ export default class LandingPageLocators{
         this.logoWebsite = page.locator(`#logo`);
         this.navbar = page.locator(`div.collapse.navbar-collapse.navbar-ex1-collapse`);
         this.navbarlist = page.locator(`.nav.navbar-nav`)
-        this.Desktops = page.getByText(`Desktops`);
         this.Laptops = page.getByText(`Laptops & Notebooks`);
         this.Components = page.getByText(`Components`);
         this.Mp3Players = page.getByText(`MP3 Players`);

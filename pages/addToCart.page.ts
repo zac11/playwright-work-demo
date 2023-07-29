@@ -25,7 +25,7 @@ export default class AddToCart {
     /**
      * Add a product in cart from the navbar
      */
-    async addToCartFromNavbar() {
+    async addToCartFromNavbar(expectedText: string) {
         const basemethods = new BaseMethods(this.page);
         const addtocartlocators = new AddToCartLocator(this.page);
         await basemethods.hoverOnLocator(addtocartlocators.desktop);
@@ -33,13 +33,13 @@ export default class AddToCart {
         await basemethods.waitForElementToBeVisible(addtocartlocators.addtoCartString);
         await basemethods.clickOnElement(addtocartlocators.addtoCart);
         await this.page.waitForTimeout(2000);
-        await this.validateCartContents(`1 items`);
+        await this.validateCartContents(expectedText);
 
 
     }
 
 
-    async addToCartFromCarousell() {
+    async addToCartFromCarousell(expectedText: string) {
         const basemethods = new BaseMethods(this.page);
         const addtocartlocators = new AddToCartLocator(this.page);
         await basemethods.clickOnElement(addtocartlocators.MacbookAir);
@@ -52,19 +52,18 @@ export default class AddToCart {
     }
 
 
-    async addtoCartFromFeaturedSection() {
-
+    async addtoCartFromFeaturedSection(expectedText: string) {
         const addtocartlocators = new AddToCartLocator(this.page);
         const landingPageLocators = new LandingPageLocators(this.page);
 
         await landingPageLocators.productDescription.nth(1).locator(addtocartlocators.addtoCart).click();
         await this.page.waitForTimeout(2000);
-        await this.validateCartContents(`1 items`);
+        await this.validateCartContents(expectedText);
 
     }
 
 
-    async removeSingleItemFromCart(){
+    async removeSingleItemFromCart() {
         const basemethods = new BaseMethods(this.page);
         const addtocartlocators = new AddToCartLocator(this.page);
         const landingPageLocators = new LandingPageLocators(this.page);
@@ -73,6 +72,20 @@ export default class AddToCart {
         await this.page.waitForTimeout(1000);
         await this.validateCartContents(`0 items`);
 
+    }
+
+    async removeMultipleItemsFromCart() {
+        const basemethods = new BaseMethods(this.page);
+        const addtocartlocators = new AddToCartLocator(this.page);
+        const landingPageLocators = new LandingPageLocators(this.page);
+        await basemethods.clickOnElement(landingPageLocators.cartText);
+        for (const li of await addtocartlocators.removeCartTable.locator(`tr`).all()){
+            await this.page.waitForTimeout(1000);
+            await basemethods.clickOnElement(li.getByTitle(`Remove`));
+            await basemethods.clickOnElement(landingPageLocators.cartText);
+            
+        }
+           
     }
 
 

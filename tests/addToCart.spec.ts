@@ -16,22 +16,29 @@ test.describe(`Add a product to cart`,async()=>{
 
     test(`Add a product in cart from the navbar`, async({page})=>{
         const addToCart = new AddToCart(page);
-        await addToCart.addToCartFromNavbar();
+        await addToCart.addToCartFromNavbar(`1 items`);
     });
 
     test(`Add a product in cart from the carousell`, async({page})=>{
         const addToCart = new AddToCart(page);
-        await addToCart.addToCartFromCarousell();
+        await addToCart.addToCartFromCarousell(`1 items`);
     });
 
     test(`Add a product in cart from the featured section`, async({page})=>{
         const addToCart = new AddToCart(page);
-        await addToCart.addtoCartFromFeaturedSection();
+        await addToCart.addtoCartFromFeaturedSection(`1 items`);
     });
 
-    test.only(`Add a produt to cart and then remove it`, async({page})=>{
+    test(`Add a produt to cart and then remove it`, async({page})=>{
         const addToCart = new AddToCart(page);
-        await addToCart.addtoCartFromFeaturedSection();
+        await addToCart.addtoCartFromFeaturedSection(`1 items`);
         await addToCart.removeSingleItemFromCart();
-    })
+    });
+
+    test.skip(`Add multiple products to cart and then remove it`, async({page})=>{
+        const addToCart = new AddToCart(page);
+        await addToCart.addtoCartFromFeaturedSection(`1 items`);
+        await addToCart.addToCartFromNavbar(`2 items`);
+        await addToCart.removeMultipleItemsFromCart();
+    });
 })
