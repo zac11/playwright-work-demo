@@ -22,11 +22,30 @@ export default class ProductListing{
         await basemethods.clickOnElement(productListing.allDesktops);
     }
 
-    async validateCategoryNameNDesc(expected : string){
+    async validateCategoryNameNDesc(expectedCategory : string, expectedDescription : string){
+        
         const basemethods = new BaseMethods(this.page);
         const productListing = new DesktopProductListingPage(this.page);
-        await basemethods.validateText(productListing.categoryName, expected);
-        await basemethods.validateText(productListing.categoryName, expected);
+        await basemethods.validateText(productListing.categoryName, expectedCategory);
+        await basemethods.validateText(productListing.categoryDesc, expectedDescription);
+    }
+
+    async validateRefineSearchOptionsCount(expectedCount : number){
+        const basemethods = new BaseMethods(this.page);
+        const productListing = new DesktopProductListingPage(this.page);
+        const listofrefinesearchoptions = await productListing.refineSearchOptions.nth(3).locator(`li`).count();
+        (expect(await listofrefinesearchoptions).toEqual(expectedCount));
+
+    }
+
+    async changeViewOption(option: string){
+        const basemethods = new BaseMethods(this.page);
+        const productListing = new DesktopProductListingPage(this.page);
+        if(option == `LIST`){
+            await basemethods.clickOnElement(productListing.listView);
+        }else{
+            await basemethods.clickOnElement(productListing.GridView);
+        }
     }
 
 
