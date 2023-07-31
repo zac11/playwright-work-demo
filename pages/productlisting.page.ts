@@ -26,6 +26,7 @@ export default class ProductListing{
         
         const basemethods = new BaseMethods(this.page);
         const productListing = new DesktopProductListingPage(this.page);
+        await this.page.waitForTimeout(3000);
         await basemethods.validateText(productListing.categoryName, expectedCategory);
         await basemethods.validateText(productListing.categoryDesc, expectedDescription);
     }
@@ -33,7 +34,7 @@ export default class ProductListing{
     async validateRefineSearchOptionsCount(expectedCount : number){
         const basemethods = new BaseMethods(this.page);
         const productListing = new DesktopProductListingPage(this.page);
-        const listofrefinesearchoptions = await productListing.refineSearchOptions.nth(3).locator(`li`).count();
+        const listofrefinesearchoptions = await productListing.refineSearchOptions.nth(2).locator(`li`).count();
         (expect(await listofrefinesearchoptions).toEqual(expectedCount));
 
     }
@@ -43,6 +44,7 @@ export default class ProductListing{
         const productListing = new DesktopProductListingPage(this.page);
         if(option == `LIST`){
             await basemethods.clickOnElement(productListing.listView);
+            await basemethods.validateCountOfElementsIsNotZero(productListing.listViewClass);
         }else{
             await basemethods.clickOnElement(productListing.GridView);
         }

@@ -38,6 +38,15 @@ export default class BaseMethods {
         await expect(locator).toBeVisible();
     }
 
+    async validateCountOfElements(locator: Locator, expectedCount : number){
+        await expect(locator).toHaveCount(expectedCount);
+    }
+
+    async validateCountOfElementsIsNotZero(locator: Locator){
+        const count = locator.count();
+        await expect(count).toBeGreaterThanOrEqual(1);
+    }
+
     async validateElementNotVisible(locator: Locator) {
         await expect(locator).not.toBeVisible();
     }
