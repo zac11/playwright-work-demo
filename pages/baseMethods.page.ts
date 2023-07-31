@@ -43,7 +43,7 @@ export default class BaseMethods {
     }
 
     async validateCountOfElementsIsNotZero(locator: Locator){
-        const count = locator.count();
+        const count = await locator.count();
         await expect(count).toBeGreaterThanOrEqual(1);
     }
 

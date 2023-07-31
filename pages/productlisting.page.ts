@@ -47,7 +47,32 @@ export default class ProductListing{
             await basemethods.validateCountOfElementsIsNotZero(productListing.listViewClass);
         }else{
             await basemethods.clickOnElement(productListing.GridView);
+            await basemethods.validateCountOfElementsIsNotZero(productListing.GridViewClass);
         }
+        await this.page.waitForTimeout(3000);
+    }
+
+   
+    async validateAllSortingOptions(){
+        const expectedArray = [
+            'Default',
+            'Name (A - Z)',
+            'Name (Z - A)',
+            'Price (Low > High)',
+            'Price (High > Low)',
+            'Rating (Highest)',
+            'Rating (Lowest)',
+            'Model (A - Z)',
+            'Model (Z - A)'
+            
+        ];
+        const productListing = new DesktopProductListingPage(this.page);
+        const allSelectOptions = await productListing.sortingOptions.locator(`option`).allInnerTexts();
+        await expect(allSelectOptions).toEqual(expectedArray)
+
+
+
+        
     }
 
 

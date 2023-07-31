@@ -31,4 +31,16 @@ test.describe(`Tests for Desktop product listings`, async()=>{
         await productlisting.changeViewOption(`LIST`);
     });
 
+    test(`Go to all desktop listing and change view to GRID`,async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.changeViewOption(`GRID`);
+    });
+
+    test(`Validate all seclet options in sort by`, async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.validateAllSortingOptions()
+    })
+    
+   
+
 })
