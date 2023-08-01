@@ -36,10 +36,35 @@ test.describe(`Tests for Desktop product listings`, async()=>{
         await productlisting.changeViewOption(`GRID`);
     });
 
-    test(`Validate all seclet options in sort by`, async({page})=>{
+    test(`Validate all select options in sort by`, async({page})=>{
         const productlisting = new ProductListing(page);
         await productlisting.validateAllSortingOptions()
-    })
+    });
+
+    test(`Change limit of products`, async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.selectShowLimit(50);
+    });
+
+    test(`Sort products by name in descending order`, async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.sortProductsByName(`desc`);
+    });
+
+    test(`Sort products by price in descending order`, async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.sortProductsByPrice(`desc`);
+    });
+
+    test(`Sort products by rating in descending order`, async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.sortProductsByRating(`DESC`);
+    });
+
+    test(`Sort products by model in descending order`, async({page})=>{
+        const productlisting = new ProductListing(page);
+        await productlisting.sortProductsByModel(`desc`);
+    });
     
    
 
