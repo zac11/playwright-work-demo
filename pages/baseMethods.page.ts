@@ -67,6 +67,7 @@ export default class BaseMethods {
 
     async waitforElement(timeout: number) {
         await this.page.waitForTimeout(timeout);
+       
     }
 
     async encrypt_password() {

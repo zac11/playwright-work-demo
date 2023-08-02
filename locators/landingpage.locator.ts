@@ -12,6 +12,8 @@ export default class LandingPageLocators{
     readonly Mp3Players : Locator;
     readonly menuOptons : Locator;
     readonly searchBar : Locator;
+    readonly searchBtn : Locator;
+    readonly searchResults : Locator;
     readonly cart : Locator;
     readonly cartText : Locator;
     readonly productDescription : Locator;
@@ -29,6 +31,8 @@ export default class LandingPageLocators{
         this.Components = page.getByText(`Components`);
         this.Mp3Players = page.getByText(`MP3 Players`);
         this.searchBar = page.getByPlaceholder(`Search`);
+        this.searchBtn = page.locator(`button.btn.btn-default.btn-lg`);
+        this.searchResults = page.locator(`div.caption`);
         this.cart = page.locator(`#cart`);
         this.cartText = page.locator(`#cart-total`);
         this.productDescription = page.locator(`.product-thumb.transition`);
