@@ -26,8 +26,15 @@ test.describe(`Go to Register Page and register a new user`,()=>{
         const datamethods = new dataMethods(page);
         const loginpage = new LoginPage(page);
         await loginpage.goToLoginPage();
-        await datamethods.enterUnsucessfullLogin();
+        await datamethods.enterUnsucessfullLoginUsingJson();
     });
+
+    test(`Data driven testing using yaml as data provider - Login functionality`, async({page})=>{
+        const datamethods = new dataMethods(page);
+        const loginpage = new LoginPage(page);
+        await loginpage.goToLoginPage();
+        await datamethods.enterUnsuccessfullLoginUsingYaml()
+    })
    
 
 });

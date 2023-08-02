@@ -3,9 +3,16 @@ import LandingPageLocators from "../locators/landingpage.locator";
 import { persons } from '../data/searchQueryJson.json';
 import * as path from 'path';
 import Excel from 'exceljs';
+import * as fs from 'fs';
+//import * as yaml from 'js-yaml';
 import BaseMethods from "./baseMethods.page";
 import LoginLocators from "../locators/login.locator";
+import * as yaml from 'yaml';
 
+interface UserData {
+    username: string;
+    password: string;
+}
 
 export default class dataMethods {
     readonly page: Page;
@@ -35,21 +42,24 @@ export default class dataMethods {
             return this.getCellValue(row, 1);
         });
 
-        for (let item of data){
+        for (let item of data) {
             await landingpage.searchBar.fill(item);
+            await this.page.waitForTimeout(2000);
             await landingpage.searchBtn.click();
+            await this.page.waitForTimeout(2000);
             const searchResultCount = await landingpage.searchResults.filter({ hasText: `${item}` }).count();
+            await this.page.waitForTimeout(2000);
             await expect(searchResultCount).toBeGreaterThan(0);
 
         }
 
     }
 
-    async enterUnsucessfullLogin(){
+    async enterUnsucessfullLoginUsingJson() {
         const baseMethods = new BaseMethods(this.page);
         const loginlocators = new LoginLocators(this.page);
-        for (const person of persons){
-            await console.log(`Iteration with ${person}`);
+        for (const person of persons) {
+            await console.log(`Iteration with await ${person}`);
             await loginlocators.LoginEmail.fill(await person.username);
             await this.page.waitForTimeout(2000);
             await loginlocators.LoginPassword.fill(await person.password);
@@ -60,5 +70,30 @@ export default class dataMethods {
 
     }
 
+
+    async enterUnsuccessfullLoginUsingYaml() {
+        const baseMethods = new BaseMethods(this.page);
+        const loginlocators = new LoginLocators(this.page);
+        try {
+            const fileContents: string = await fs.promises.readFile('./data/searchQueryYaml.yaml', 'utf8');
+            const parsedData: any = yaml.parse(fileContents);
+            console.log(parsedData);
+
+            for (const userData of parsedData.data) {
+                await loginlocators.LoginEmail.fill(await userData.username);
+                await loginlocators.LoginPassword.fill(await userData.password);
+                await this.page.waitForTimeout(2000);
+                await baseMethods.clickOnElement(loginlocators.LoginBtn);
+                await baseMethods.waitForElementToBeVisible(loginlocators.errorAlert);
+                await this.page.waitForTimeout(2000);
+
+                // Perform assertions or other actions for each user login
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
 
 }

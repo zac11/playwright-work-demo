@@ -16,6 +16,9 @@
   "dependencies": {
     "crypto-js": "^4.1.1",
     "exceljs": "^4.3.0",
-    "path": "^0.12.7"
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
+    "path": "^0.12.7",
+    "yaml": "^2.3.1"
   }
 }
