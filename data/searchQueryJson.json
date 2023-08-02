@@ -1,0 +1,20 @@
+{
+    "persons":[
+        {
+            "username":"Alex@Iwobi.com",
+            "password":"pass123@45"
+        },
+        {
+            "username":"John@smart.com",
+            "password":" "
+        },
+        {
+            "username":"John@abraham.co.in",
+            "password":"111"
+        },
+        {
+            "username":"Kevin@systrom.in",
+            "password":"Tes12@12wat"
+        }
+    ]
+}

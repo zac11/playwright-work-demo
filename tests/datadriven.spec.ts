@@ -2,6 +2,7 @@ import { test, Page } from "@playwright/test";
 import BaseMethods from "../pages/baseMethods.page";
 import MenuLocator from "../locators/menubar.locator";
 import dataMethods from "../pages/dataMethods.page";
+import LoginPage from "../pages/login.page";
 
 
 
@@ -16,9 +17,16 @@ test.describe(`Go to Register Page and register a new user`,()=>{
     });
 
 
-    test(`Print data from excel`, async({page})=>{
+    test(`Data driven testing using excel as data provider - Search functionality`, async({page})=>{
         const datamethods = new dataMethods(page);
-        await datamethods.fetchDataFromExcel();
+        await datamethods.fetchDataFromExcelAndValidate();
+    });
+
+    test(`Data driven testing using json as data provider - Login functionality`, async({page})=>{
+        const datamethods = new dataMethods(page);
+        const loginpage = new LoginPage(page);
+        await loginpage.goToLoginPage();
+        await datamethods.enterUnsucessfullLogin();
     });
    
 
