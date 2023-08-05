@@ -4,16 +4,19 @@
   "description": "Simple Test Framework with Playwright",
   "main": "index.js",
   "scripts": {
-    "test-ci": "npx playwright test --config=playwright.ci.config.ts"
+    "test-ci": "npx playwright test --config=playwright.ci.config.ts",
+    "test-allure": "npx playwright test --config=playwright.allure.config.ts  && allure generate allure-report -o allure-report --clean"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
-    "@playwright/test": "^1.35.1"
+    "@playwright/test": "^1.35.1",
+    "allure-commandline": "^2.23.1"
   },
   "dependencies": {
+    "allure-playwright": "^2.5.0",
     "crypto-js": "^4.1.1",
     "exceljs": "^4.3.0",
     "fs": "^0.0.1-security",

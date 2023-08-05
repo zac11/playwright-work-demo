@@ -5,7 +5,7 @@ import MenuLocator from "../locators/menubar.locator";
 import ProductDesc from "../pages/productDesc.page";
 
 
-test.describe(`Open product description from landing page`,async()=>{
+test.describe.only(`Open product description from landing page`,async()=>{
 
     test.beforeEach(async ({ page }) => {
         const baseMethods = new BaseMethods(page);
