@@ -22,8 +22,7 @@ test.describe(`Go to Register Page and register a new user`,()=>{
     });
 
 
-    test(`Data driven testing using excel as data provider - Search functionality`, async({page})=>{
-       
+    test(`Data driven testing using excel as data provider - Search functionality`, async({page})=>{ 
         await datamethods.fetchDataFromExcelAndValidate();
     });
 
