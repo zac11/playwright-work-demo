@@ -16,9 +16,15 @@ interface UserData {
 
 export default class dataMethods {
     readonly page: Page;
+    private readonly landingpage : LandingPageLocators;
+    private readonly basemethods : BaseMethods;
+    private readonly loginlocators : LoginLocators;
 
     constructor(page: Page) {
         this.page = page;
+        this.landingpage = new LandingPageLocators(this.page);
+        this.basemethods = new BaseMethods(this.page);
+        this.loginlocators = new LoginLocators(this.page);
     }
 
     readonly getCellValue = (row: Excel.Row, cellIndex: number) => {
@@ -28,7 +34,6 @@ export default class dataMethods {
     };
 
     async fetchDataFromExcelAndValidate() {
-        const landingpage = new LandingPageLocators(this.page);
         const filePath = path.resolve(__dirname + '/../data/searchQueryExcel.xlsx');
         const workbook = new Excel.Workbook();
         const content = await workbook.xlsx.readFile(filePath);
@@ -43,11 +48,11 @@ export default class dataMethods {
         });
 
         for (let item of data) {
-            await landingpage.searchBar.fill(item);
+            await this.landingpage.searchBar.fill(item);
             await this.page.waitForTimeout(2000);
-            await landingpage.searchBtn.click();
+            await this.landingpage.searchBtn.click();
             await this.page.waitForTimeout(2000);
-            const searchResultCount = await landingpage.searchResults.filter({ hasText: `${item}` }).count();
+            const searchResultCount = await this.landingpage.searchResults.filter({ hasText: `${item}` }).count();
             await this.page.waitForTimeout(2000);
             await expect(searchResultCount).toBeGreaterThan(0);
 
@@ -56,15 +61,13 @@ export default class dataMethods {
     }
 
     async enterUnsucessfullLoginUsingJson() {
-        const baseMethods = new BaseMethods(this.page);
-        const loginlocators = new LoginLocators(this.page);
         for (const person of persons) {
             await console.log(`Iteration with await ${person}`);
-            await loginlocators.LoginEmail.fill(await person.username);
+            await this.loginlocators.LoginEmail.fill(await person.username);
             await this.page.waitForTimeout(2000);
-            await loginlocators.LoginPassword.fill(await person.password);
-            await baseMethods.clickOnElement(loginlocators.LoginBtn);
-            await baseMethods.waitForElementToBeVisible(loginlocators.errorAlert);
+            await this.loginlocators.LoginPassword.fill(await person.password);
+            await this.basemethods.clickOnElement(this.loginlocators.LoginBtn);
+            await this.basemethods.waitForElementToBeVisible(this.loginlocators.errorAlert);
             await this.page.waitForTimeout(2000);
         }
 
@@ -80,11 +83,11 @@ export default class dataMethods {
             console.log(parsedData);
 
             for (const userData of parsedData.data) {
-                await loginlocators.LoginEmail.fill(await userData.username);
-                await loginlocators.LoginPassword.fill(await userData.password);
+                await this.loginlocators.LoginEmail.fill(await userData.username);
+                await this.loginlocators.LoginPassword.fill(await userData.password);
                 await this.page.waitForTimeout(2000);
-                await baseMethods.clickOnElement(loginlocators.LoginBtn);
-                await baseMethods.waitForElementToBeVisible(loginlocators.errorAlert);
+                await this.basemethods.clickOnElement(this.loginlocators.LoginBtn);
+                await this.basemethods.waitForElementToBeVisible(this.loginlocators.errorAlert);
                 await this.page.waitForTimeout(2000);
 
                 // Perform assertions or other actions for each user login

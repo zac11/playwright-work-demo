@@ -4,18 +4,22 @@ import ProductDescLocators from "../locators/productDesc.locator";
 
 export default class ProductDesc{
     readonly page : Page;
+    private readonly basemethods: BaseMethods;
+    private readonly productdesc: ProductDescLocators;
+
 
     constructor(page : Page){
         this.page = page;
+        this.basemethods = new BaseMethods(this.page);
+        this.productdesc = new ProductDescLocators(this.page);
        
 
     }
 
     async gotoProductPageFromLandingPage(){
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page)
-        await basemethods.clickOnElement(productdesc.productPage);
-        await basemethods.waitForElementToBeVisible(productdesc.AddToCartString);
+    
+        await this.basemethods.clickOnElement(this.productdesc.productPage);
+        await this.basemethods.waitForElementToBeVisible(this.productdesc.AddToCartString);
     }
 
     async validateThumbNails(){
@@ -54,6 +58,27 @@ export default class ProductDesc{
         await productdesc.ReviewsTab.click();
         await expect(productdesc.ReviewsTab).not.toBeEmpty();
         await expect(productdesc.productReviewForm).toBeVisible();
+    }
+
+    async productPageWishListIcon() : Promise<void>{
+        const basemethods = new BaseMethods(this.page);
+        const productdesc = new ProductDescLocators(this.page);
+        await basemethods.hoverOnLocator(productdesc.AddtoWishList);
+        await basemethods.waitforElement(3000);  
+        await expect(productdesc.AddtoWishList).toBeVisible(); 
+        const tiptext = await productdesc.AddtoWishList.getAttribute(`data-original-title`);
+        await expect(tiptext).toEqual(`Add to Wish List`);
+
+    }
+
+    async productPageCompareProduct() : Promise<void>{
+        const basemethods = new BaseMethods(this.page);
+        const productdesc = new ProductDescLocators(this.page);
+        await basemethods.hoverOnLocator(productdesc.CompareProduct);
+        await basemethods.waitforElement(3000); 
+        await expect(productdesc.CompareProduct).toBeVisible(); 
+        const tiptext = await productdesc.CompareProduct.getAttribute(`data-original-title`);
+        await expect(tiptext).toEqual(`Compare this Product`);
     }
 
     async gotoProductPageFromNavbar(){
