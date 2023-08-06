@@ -8,7 +8,7 @@ let baseMethods;
 let productdesc;
 
 
-test.describe.only(`Open product description from landing page`, async () => {
+test.describe(`Open product description from landing page`, async () => {
 
     test.beforeEach(async ({ page }) => {
         baseMethods = new BaseMethods(page);
