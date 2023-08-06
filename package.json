@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test-ci": "npx playwright test --config=playwright.ci.config.ts",
-    "test-allure": "npx playwright test --config=playwright.allure.config.ts  && allure generate allure-report -o allure-report --clean"
+    "test-allure": "npx playwright test --config=playwright.allure.config.ts  && allure generate allure-report -o allure-report --clean",
+    "generate-allure": "npx allure open ./allure-report",
+    "alluretests": "npm run test-allure && npm run generate-allure"
   },
   "keywords": [],
   "author": "",
