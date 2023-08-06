@@ -28,8 +28,8 @@ export default class LandingPageLocators{
         this.descriptionTab = page.getByText(`Description`);
         this.SpecificationTab = page.getByText(`Specification`);
         this.ReviewsTab = page.getByRole('link', { name: 'Reviews (0)' })
-        this.AddtoWishList = page.getByTitle(`Add to Wish List`);
-        this.CompareProduct = page.getByTitle(`Compare this Product`);
+        this.AddtoWishList = page.getByRole('button', { name: '' }).nth(1);
+        this.CompareProduct = page.getByRole('button', { name: '' }).nth(1)
         this.ProductName = page.locator(`h1`).nth(2);
         this.ProductDetails = page.locator(`.list-unstyled`).nth(0);
         this.ProductPrice =  page.locator(`.list-unstyled`).nth(1);

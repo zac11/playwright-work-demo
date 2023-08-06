@@ -22,7 +22,6 @@ export default class BaseMethods {
     }
 
 
-
     async validateContainsText(locator: Locator, expectedText : string){
         await expect(locator).toContainText(expectedText);
     }
