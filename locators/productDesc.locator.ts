@@ -18,6 +18,7 @@ export default class LandingPageLocators{
     readonly AddToCartString : string;
     readonly productPage : Locator;
     readonly productReviewForm : Locator;
+    readonly productQuantity : Locator;
 
 
 
@@ -36,5 +37,6 @@ export default class LandingPageLocators{
         this.AddToCart = page.locator(`#button-cart`);
         this.AddToCartString = `#button-cart`;
         this.productReviewForm = page.locator(`#form-review`);
+        this.productQuantity = page.locator(`#input-quantity`);
     }
 }

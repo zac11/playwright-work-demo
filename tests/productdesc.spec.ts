@@ -6,6 +6,8 @@ import ProductDesc from "../pages/productDesc.page";
 
 let baseMethods;
 let productdesc;
+let addtocart;
+let menulocator;
 
 
 test.describe(`Open product description from landing page`, async () => {
@@ -13,7 +15,8 @@ test.describe(`Open product description from landing page`, async () => {
     test.beforeEach(async ({ page }) => {
         baseMethods = new BaseMethods(page);
         productdesc = new ProductDesc(page);
-        const menulocator = new MenuLocator(page);
+        menulocator = new MenuLocator(page);
+        addtocart = new AddToCart(page);
         await baseMethods.goToURL();
         await baseMethods.waitForElementToBeVisible(menulocator.WebsiteLogo);
         await productdesc.gotoProductPageFromLandingPage();
@@ -42,10 +45,23 @@ test.describe(`Open product description from landing page`, async () => {
     test(`Go to a product from landing page and review action buttons - add to cart`, async ({ page }) => {
         await Promise.all([
             productdesc.productPageWishListIcon(),
-            productdesc.productPageCompareProduct()
+            productdesc.productPageCompareProduct(),
+            productdesc.productInformation(),
+            productdesc.productPrice()
         ]);
 
-    })
+    });
+
+
+    test(`Go to a product from landing page and check whether the add to cart is working`,async({page})=>{
+        await productdesc.productAddtoCartBtn();
+    });
+
+
+ test(`Go to a product from landinge page and add that product to cart`, async({page})=>{
+    await productdesc.addProductToCartAndValidateCart()
+ })
+
 
 
 

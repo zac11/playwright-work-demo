@@ -23,28 +23,22 @@ export default class ProductDesc{
     }
 
     async validateThumbNails(){
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page);
-        await basemethods.waitforElement(3000);
-        await expect(productdesc.majorthumbnail).toBeVisible();
-        const count = await productdesc.minorthumbnail.count();
+        await this.basemethods.waitforElement(3000);
+        await expect(this.productdesc.majorthumbnail).toBeVisible();
+        const count = await this.productdesc.minorthumbnail.count();
         await expect(count).toBeGreaterThan(0);
         
     }
 
     async productDescriptionNotEmpty(){
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page);
-        await basemethods.validateElementVisible(productdesc.descriptionTab);
-        await expect(productdesc.descriptionTab).not.toBeEmpty();
+        await this.basemethods.validateElementVisible(this.productdesc.descriptionTab);
+        await expect(this.productdesc.descriptionTab).not.toBeEmpty();
     }
 
     async productSpecificationNotEmpty(){
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page);
-        if(await productdesc.SpecificationTab.isVisible()){
-            await productdesc.SpecificationTab.click();
-           await expect(productdesc.SpecificationTab).not.toBeEmpty();
+        if(await this.productdesc.SpecificationTab.isVisible()){
+            await this.productdesc.SpecificationTab.click();
+           await expect(this.productdesc.SpecificationTab).not.toBeEmpty();
         }else{
             console.log(`Specification tab doesn't exist for this product`);
         }
@@ -52,33 +46,50 @@ export default class ProductDesc{
 
 
     async productReivewTab(){
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page);
-        await basemethods.validateElementVisible(productdesc.ReviewsTab);
-        await productdesc.ReviewsTab.click();
-        await expect(productdesc.ReviewsTab).not.toBeEmpty();
-        await expect(productdesc.productReviewForm).toBeVisible();
+        await this.basemethods.validateElementVisible(this.productdesc.ReviewsTab);
+        await this.productdesc.ReviewsTab.click();
+        await expect(this.productdesc.ReviewsTab).not.toBeEmpty();
+        await expect(this.productdesc.productReviewForm).toBeVisible();
     }
 
     async productPageWishListIcon() : Promise<void>{
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page);
-        await basemethods.hoverOnLocator(productdesc.AddtoWishList);
-        await basemethods.waitforElement(3000);  
-        await expect(productdesc.AddtoWishList).toBeVisible(); 
-        const tiptext = await productdesc.AddtoWishList.getAttribute(`data-original-title`);
+        await this.basemethods.hoverOnLocator(this.productdesc.AddtoWishList);
+        await this.basemethods.waitforElement(3000);  
+        await expect(this.productdesc.AddtoWishList).toBeVisible(); 
+        const tiptext = await this.productdesc.AddtoWishList.getAttribute(`data-original-title`);
         await expect(tiptext).toEqual(`Add to Wish List`);
 
     }
 
     async productPageCompareProduct() : Promise<void>{
-        const basemethods = new BaseMethods(this.page);
-        const productdesc = new ProductDescLocators(this.page);
-        await basemethods.hoverOnLocator(productdesc.CompareProduct);
-        await basemethods.waitforElement(3000); 
-        await expect(productdesc.CompareProduct).toBeVisible(); 
-        const tiptext = await productdesc.CompareProduct.getAttribute(`data-original-title`);
+        
+        await this.basemethods.hoverOnLocator(this.productdesc.CompareProduct);
+        await this.basemethods.waitforElement(3000); 
+        await expect(this.productdesc.CompareProduct).toBeVisible(); 
+        const tiptext = await this.productdesc.CompareProduct.getAttribute(`data-original-title`);
         await expect(tiptext).toEqual(`Compare this Product`);
+    }
+
+    async productInformation() : Promise<void>{
+        await this.basemethods.waitForLocator(this.productdesc.ProductName);
+        await expect(this.productdesc.ProductName).not.toBeUndefined();
+    }
+
+    async productPrice() : Promise<void>{
+        await this.basemethods.waitForLocator(this.productdesc.ProductPrice);
+        await expect(this.productdesc.ProductPrice).toBeGreaterThan(0);
+    }
+
+    async productAddtoCartBtn(){
+        await this.basemethods.waitForLocator(this.productdesc.AddToCart);
+        await expect(this.productdesc.AddToCart).toBeVisible();
+    }
+
+
+    async addProductToCartAndValidateCart(){
+        await this.basemethods.waitForLocator(this.productdesc.AddToCart);
+        await this.productdesc.productQuantity.fill(`4`);
+        await this.basemethods.clickOnElement(this.productdesc.AddToCart);
     }
 
     async gotoProductPageFromNavbar(){

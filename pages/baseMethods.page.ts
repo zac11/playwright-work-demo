@@ -33,6 +33,12 @@ export default class BaseMethods {
 
     }
 
+    async waitForLocator(locator: Locator){
+        await locator.waitFor({
+            state : 'visible'
+        })
+    };
+
     async validateElementVisible(locator: Locator) {
         await expect(locator).toBeVisible();
     }
