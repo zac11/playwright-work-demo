@@ -50,17 +50,19 @@ test.describe(`Open product description from landing page`, async () => {
             productdesc.productPrice()
         ]);
 
+        
+
     });
 
 
-    test(`Go to a product from landing page and check whether the add to cart is working`,async({page})=>{
+    test(`Go to a product from landing page and check whether the add to cart is working`, async ({ page }) => {
         await productdesc.productAddtoCartBtn();
     });
 
 
- test(`Go to a product from landinge page and add that product to cart`, async({page})=>{
-    await productdesc.addProductToCartAndValidateCart()
- })
+    test(`Go to a product from landinge page and add that product to cart`, async ({ page }) => {
+        await productdesc.addProductToCartAndValidateCart()
+    })
 
 
 

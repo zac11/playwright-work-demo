@@ -1,17 +1,20 @@
 import { Locator, Page, expect } from "@playwright/test";
 import BaseMethods from "./baseMethods.page";
 import ProductDescLocators from "../locators/productDesc.locator";
+import AddToCart from "./addToCart.page";
 
 export default class ProductDesc{
     readonly page : Page;
     private readonly basemethods: BaseMethods;
     private readonly productdesc: ProductDescLocators;
+    private readonly addtoCart : AddToCart;
 
 
     constructor(page : Page){
         this.page = page;
         this.basemethods = new BaseMethods(this.page);
         this.productdesc = new ProductDescLocators(this.page);
+        this.addtoCart = new AddToCart(this.page);
        
 
     }
@@ -72,12 +75,16 @@ export default class ProductDesc{
 
     async productInformation() : Promise<void>{
         await this.basemethods.waitForLocator(this.productdesc.ProductName);
-        await expect(this.productdesc.ProductName).not.toBeUndefined();
+        await expect(this.productdesc.ProductName).not.toBeEmpty();
     }
 
     async productPrice() : Promise<void>{
         await this.basemethods.waitForLocator(this.productdesc.ProductPrice);
-        await expect(this.productdesc.ProductPrice).toBeGreaterThan(0);
+        const priceofItem = await this.productdesc.ProductPrice.textContent();
+        const price = parseFloat(await priceofItem.replace('$', ''));
+        await expect(price).toBeGreaterThan(0);
+       
+        
     }
 
     async productAddtoCartBtn(){
@@ -87,16 +94,12 @@ export default class ProductDesc{
 
 
     async addProductToCartAndValidateCart(){
-        await this.basemethods.waitForLocator(this.productdesc.AddToCart);
         await this.productdesc.productQuantity.fill(`4`);
+        await this.basemethods.waitforElement(1000);
         await this.basemethods.clickOnElement(this.productdesc.AddToCart);
+        await this.basemethods.waitforElement(1000);
+        await this.addtoCart.validateCartContents(`4 items`);
     }
 
-    async gotoProductPageFromNavbar(){
-
-    }
-
-    async gotoProductPageFromSearch(){
-
-    }
+   
 }
