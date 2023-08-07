@@ -52,3 +52,12 @@ To change the secrets and allow the emails to be sent to your email id - you wil
 ## Report
 Reports are hosted on the Github pages. Open https://<githubusername>.github.io/playwright-work-demo after running your tests.
 For my tests reports are at https://zac11.github.io/playwright-work-demo
+
+
+## Docker
+The test suite contains a docker file that enables you to run the commands in Docker in local/ci systems
+- Build the docker file : `docker build -t pw .` 
+
+here you can replace `pw` with whatever tag name you want to give - it could be `docker build -t testing .`
+
+- Once the Dockerfile is built, then run that using `docker run -it pw:latest npm run test-ci` - replace the tag name (`pw`) with whatever tag name you've given
