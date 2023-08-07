@@ -52,6 +52,7 @@ To change the secrets and allow the emails to be sent to your email id - you wil
 ## Report
 Reports are hosted on the Github pages. Open https://<githubusername>.github.io/playwright-work-demo after running your tests.
 For my tests reports are at https://zac11.github.io/playwright-work-demo
+You can read this here : https://harshitshah156.medium.com/host-your-automation-report-on-github-pages-with-github-actions-69f80857bd28
 
 
 ## Docker
