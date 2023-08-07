@@ -18,6 +18,7 @@ export default class LandingPageLocators{
     readonly AddToCartString : string;
     readonly productPage : Locator;
     readonly productReviewForm : Locator;
+    readonly productQuantity : Locator;
 
 
 
@@ -30,11 +31,12 @@ export default class LandingPageLocators{
         this.ReviewsTab = page.getByRole('link', { name: 'Reviews (0)' })
         this.AddtoWishList = page.getByRole('button', { name: '' }).nth(1);
         this.CompareProduct = page.getByRole('button', { name: '' }).nth(1)
-        this.ProductName = page.locator(`h1`).nth(2);
-        this.ProductDetails = page.locator(`.list-unstyled`).nth(0);
-        this.ProductPrice =  page.locator(`.list-unstyled`).nth(1);
+        this.ProductName = page.locator(`h1`).nth(1);
+        this.ProductDetails = page.locator(`.list-unstyled`).nth(7);
+        this.ProductPrice = page.locator(`h2`).nth(1);
         this.AddToCart = page.locator(`#button-cart`);
         this.AddToCartString = `#button-cart`;
         this.productReviewForm = page.locator(`#form-review`);
+        this.productQuantity = page.locator(`#input-quantity`);
     }
 }
