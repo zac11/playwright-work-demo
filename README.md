@@ -4,6 +4,16 @@ Current status of Tests : [![Playwright Tests](https://github.com/zac11/playwrig
 ## Simple Test Framework with Playwright
 This is a simple sample test framework using Page Object Model in Playwright. Tests are written in `.ts`, and run only on Chrome, but in parallel.
 
+
+## Setup
+Since this is based on Playwright with TS, so the pre-requisite is that you should have NodeJS installed on your system.
+Once NodeJS is installed.
+
+- Clone the repo : `gh repo clone zac11/playwright-work-demo` (or using `git clone zac11/playwright-work-demo`)
+- Install the `npm` dependencies using `npm i` or `npm install`
+- See the `Running tests` section on how to run the tests
+
+
 ## Structure
 The primary directories are as follows
 - .github : Contains the `.yaml` files for Github Actions CI.
@@ -12,8 +22,10 @@ The primary directories are as follows
 - pages : Page class contains the methods/assertions per page.
 - tests : Contain the tests for the web pages
 
+
 ## System Under Test
 The system under test is : https://tutorialsninja.com/demo/
+
 
 ## Libraries Used 
 - Playwright : For driving the UI tests
